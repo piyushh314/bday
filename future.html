@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Memory Lane</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffc8dd 0%, #ffafcc 50%, #bde0fe 100%);
+            color: #5a3d5c;
+            overflow-x: hidden;
+            min-height: 100vh;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #ff006e;
+            text-shadow: 2px 2px 0 #ff85a1;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #6d6875;
+            font-style: italic;
+        }
+
+        .memory-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .memory-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            animation: cardAppear 0.8s ease forwards;
+            opacity: 0;
+            transform: translateY(20px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes cardAppear {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .memory-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .memory-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #ff006e, #ff85a1);
+        }
+
+        /* Fixed photo container to maintain aspect ratio */
+        .photo-container {
+            position: relative;
+            width: 100%;
+            max-height: 400px; /* Maximum height to prevent images from being too large */
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f9f9f9;
+        }
+
+        .memory-img {
+            width: 100%;
+            height: auto; /* Maintain original aspect ratio */
+            max-height: 400px; /* Limit maximum height */
+            object-fit: contain; /* Ensures entire image is visible */
+            border-radius: 15px;
+            transition: transform 0.5s ease;
+        }
+
+        .memory-card:hover .memory-img {
+            transform: scale(1.03);
+        }
+
+        .photo-placeholder {
+            font-size: 4rem;
+            color: #ff85a1;
+            padding: 20px;
+        }
+
+        .caption {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #5a3d5c;
+            text-align: center;
+            padding: 0 5px;
+        }
+
+        .memory-number {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #ff006e;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+        }
+
+        .heart-divider {
+            text-align: center;
+            margin: 25px 0;
+            font-size: 2rem;
+            color: #ff006e;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .back-button, .continue-button {
+            background: linear-gradient(45deg, #ff006e, #ff85a1);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 0, 110, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-button:hover, .continue-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 0, 110, 0.6);
+        }
+
+        .future-search {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: monospace;
+            margin: 20px 0;
+            text-align: left;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            border-left: 5px solid #ff006e;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 1.1rem;
+            color: #6d6875;
+            font-style: italic;
+        }
+
+        /* Cute floating elements */
+        .floating-heart {
+            position: fixed;
+            font-size: 2rem;
+            opacity: 0;
+            animation: floatHeart 8s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .thought-bubble {
+            position: relative;
+            background: white;
+            border-radius: 20px;
+            padding: 15px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .thought-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid white;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.2rem;
+            }
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            .photo-container {
+                max-height: 350px;
+            }
+            .memory-img {
+                max-height: 350px;
+            }
+            .photo-placeholder {
+                font-size: 3rem;
+            }
+            .caption {
+                font-size: 1rem;
+            }
+            .button-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .back-button, .continue-button {
+                width: 100%;
+                max-width: 250px;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .title {
+                font-size: 1.8rem;
+            }
+            .subtitle {
+                font-size: 1rem;
+            }
+            .container {
+                padding: 10px;
+            }
+            .memory-card {
+                padding: 12px;
+            }
+            .caption {
+                font-size: 0.95rem;
+                line-height: 1.5;
+            }
+            .photo-container {
+                max-height: 300px;
+            }
+            .memory-img {
+                max-height: 300px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .title {
+                font-size: 1.6rem;
+            }
+            .photo-container {
+                max-height: 250px;
+            }
+            .memory-img {
+                max-height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating hearts background -->
+    <div id="heartsContainer"></div>
+
+    <div class="container">
+        <div class="header">
+            <h1 class="title">Our Memory Lane</h1>
+            <p class="subtitle">A journey through our beautiful moments together 💕</p>
+        </div>
+
+        <div class="memory-grid">
+            <!-- Memory 1 -->
+            <div class="memory-card" style="animation-delay: 0.1s;">
+                <div class="photo-container">
+                    <div class="memory-number">1</div>
+                    <img src="usmetro.jpeg" alt="Our first meeting" class="memory-img" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'photo-placeholder\'>🤗</div>'">
+                </div>
+                <p class="caption">
+                    Our pehli pehli mulakaat 😋<br>
+                    "Us meeting for the first time, getting a hug 🙈, awkward honge hi dono pehli baar jo mil rhe h relationship me aane ke baad, randomly chalte chalte haath padkna…<br>
+                    Sath chalte chalte trying to match our feets" 🙈🙈🙈🙈🙈🙈🙈
+                </p>
+            </div>
+
+            <!-- Memory 2 -->
+            <div class="memory-card" style="animation-delay: 0.2s;">
+                <div class="photo-container">
+                    <div class="memory-number">2</div>
+                    <img src="ustogether.jpeg" alt="Our first ghumi ghumi" class="memory-img" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'photo-placeholder\'>🚶‍♂️🚶‍♀️</div>'">
+                </div>
+                <p class="caption">
+                    Our first ghumi ghumi<br>
+                    "Damn pure din ghumenge, itna ghumenge ki thak ke chur chur ho jayenge<br>
+                    I can imagine that feeling of showing each other the things jo ek dusre ko dikhane ke liye sochte the ki 'usko dikhaunga ye'" 😋😋😋
+                </p>
+            </div>
+
+            <!-- Memory 3 -->
+            <div class="memory-card" style="animation-delay: 0.3s;">
+                <div class="photo-container">
+                    <div class="memory-number">3</div>
+                    <img src="usclose.jpeg" alt="Our first kiss" class="memory-img" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'photo-placeholder\'>💋</div>'">
+                </div>
+                <p class="caption">
+                    Our first kiss<br>
+                    "Uhm uhm, mere toh sochke hi dil me dhak dhak hone lgti h<br>
+                    Just imagining us both after that first kiss<br>
+                    Uhummm 🙈🙈"
+                </p>
+            </div>
+
+            <!-- Memory 4 -->
+            <div class="memory-card" style="animation-delay: 0.4s;">
+                <div class="photo-container">
+                    <div class="memory-number">4</div>
+                    <img src="usvc.jpeg" alt="Our first VC" class="memory-img" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'photo-placeholder\'>📱</div>'">
+                </div>
+                <p class="caption">
+                    Our first VC jab aap ghar se bahr aajaogi<br>
+                    "Aise physically sath baithke baat krne ki feeling kya hi next level hogi I cant even imagine<br>
+                    But imagine aap hostel me ho and hum khulke baat kr skte h finally VC pe, na zor se bolne ka dar, na kisi ke aane ka dar 😋😋😋😋😋<br>
+                    Just you and me talking and watching each other peacefully"
+                </p>
+            </div>
+
+            <!-- Memory 5 -->
+            <div class="memory-card" style="animation-delay: 0.5s;">
+                <div class="photo-container">
+                    <div class="memory-number">5</div>
+                    <img src="usdancing.jpeg" alt="Our calls" class="memory-img" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'photo-placeholder\'>💃</div>'">
+                </div>
+                <p class="caption">
+                    Jab chahe call pe baat krli, mann nhi lagra call pe baat krli, kuch acha hogya call pe baat krli, kisi ki chugli krni h call pe baat krli, maje hi maje… 🙈
+                </p>
+            </div>
+
+            <!-- Memory 6 -->
+            <div class="memory-card" style="animation-delay: 0.6s;">
+                <div class="photo-container">
+                    <div class="memory-number">6</div>
+                    <img src="usrain.jpeg" alt="Walking in rain" class="memory-img" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'photo-placeholder\'>🌧️</div>'">
+                </div>
+                <p class="caption">
+                    Imagine walking in the rain together, koi fikar nhi, koi tension nhi uss moment me, just you and I. Haath pakde walking endlessly till it rains, mere toh soch soch ke hi dil me dhak dhak hoti h 🙈
+                </p>
+            </div>
+        </div>
+
+        <!-- Final thought bubble -->
+        <div class="thought-bubble">
+            <p class="caption">
+                Jo bhi hoga in future, just know that I love you and I'll love you forever 💖
+            </p>
+        </div>
+
+        <div class="heart-divider">💖</div>
+
+        <!-- Button container with both buttons -->
+        <div class="button-container">
+            <button class="back-button" onclick="window.history.back()">
+                <i class="fas fa-arrow-left"></i> Back
+            </button>
+            <button class="continue-button" onclick="window.location.href='letter.html'">
+                Continue to Letter <i class="fas fa-envelope"></i>
+            </button>
+        </div>
+
+        <div class="footer">
+            <p>I can't give you a physical gift but I can obviously make this birthday rememberable 💕</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create floating hearts
+            const heartsContainer = document.getElementById('heartsContainer');
+            const heartIcons = ['❤️', '💕', '💖', '💗', '💓', '💘'];
+            
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('floating-heart');
+                heart.innerHTML = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 8 + 's';
+                heart.style.fontSize = (Math.random() * 10 + 20) + 'px';
+                heartsContainer.appendChild(heart);
+            }
+            
+            // Add scroll animation to memory cards
+            const memoryCards = document.querySelectorAll('.memory-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            memoryCards.forEach(card => {
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>

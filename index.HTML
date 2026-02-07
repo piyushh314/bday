@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, My Love!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial Rounded MT Bold', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #ffc8dd 0%, #ffafcc 50%, #bde0fe 100%);
+            color: #5a3d5c;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            max-width: 100%;
+            width: 100%;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Birthday Text Animation */
+        .birthday-text {
+            font-size: 4rem;
+            font-weight: 900;
+            color: #ff006e;
+            text-shadow: 3px 3px 0 #ff85a1, 6px 6px 0 rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            animation: bounce 2s ease infinite, glow 3s ease-in-out infinite alternate;
+            line-height: 1.2;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes glow {
+            0% { text-shadow: 3px 3px 0 #ff85a1, 6px 6px 0 rgba(0, 0, 0, 0.1); }
+            100% { text-shadow: 3px 3px 0 #ff85a1, 6px 6px 15px rgba(255, 0, 110, 0.6); }
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #6d6875;
+            margin-bottom: 30px;
+            font-style: italic;
+            animation: fadeIn 2s ease forwards;
+            opacity: 0;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cat animations */
+        .cat-container {
+            position: relative;
+            height: 200px;
+            width: 100%;
+            margin: 30px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .cat {
+            position: relative;
+            width: 150px;
+            height: 130px;
+            animation: catFloat 4s ease-in-out infinite;
+        }
+
+        .cat-body {
+            position: absolute;
+            width: 100px;
+            height: 70px;
+            background: #ffd166;
+            border-radius: 50% 50% 40% 40%;
+            bottom: 0;
+            left: 25px;
+            z-index: 5;
+        }
+
+        .cat-head {
+            position: absolute;
+            width: 90px;
+            height: 90px;
+            background: #ffd166;
+            border-radius: 50%;
+            bottom: 45px;
+            left: 30px;
+            z-index: 10;
+        }
+
+        .cat-ear {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 18px solid transparent;
+            border-right: 18px solid transparent;
+            border-bottom: 30px solid #ffd166;
+            top: -15px;
+            z-index: 9;
+        }
+
+        .cat-ear.left {
+            left: 10px;
+            transform: rotate(-10deg);
+        }
+
+        .cat-ear.right {
+            right: 10px;
+            transform: rotate(10deg);
+        }
+
+        .cat-eye {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: #6d6875;
+            border-radius: 50%;
+            top: 30px;
+            animation: blink 4s infinite;
+        }
+
+        @keyframes blink {
+            0%, 45%, 55%, 100% { height: 15px; }
+            50% { height: 5px; }
+        }
+
+        .cat-eye.left {
+            left: 20px;
+        }
+
+        .cat-eye.right {
+            right: 20px;
+        }
+
+        .cat-nose {
+            position: absolute;
+            width: 12px;
+            height: 10px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            top: 45px;
+            left: 39px;
+            z-index: 11;
+        }
+
+        .cat-mouth {
+            position: absolute;
+            width: 20px;
+            height: 10px;
+            border-bottom: 3px solid #ff6b6b;
+            border-radius: 0 0 10px 10px;
+            top: 55px;
+            left: 35px;
+            z-index: 11;
+        }
+
+        .cat-paw {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #ffd166;
+            border-radius: 50%;
+            bottom: -5px;
+            z-index: 4;
+        }
+
+        .cat-paw.left {
+            left: 15px;
+        }
+
+        .cat-paw.right {
+            right: 15px;
+        }
+
+        .cat-tail {
+            position: absolute;
+            width: 50px;
+            height: 18px;
+            background: #ffd166;
+            border-radius: 50%;
+            bottom: 35px;
+            right: -20px;
+            transform: rotate(30deg);
+            animation: tailWag 2s ease-in-out infinite;
+            z-index: 4;
+        }
+
+        @keyframes catFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes tailWag {
+            0%, 100% { transform: rotate(30deg); }
+            50% { transform: rotate(10deg); }
+        }
+
+        /* Interactive instructions */
+        .tap-instruction {
+            font-size: 1.2rem;
+            color: #ff006e;
+            margin-top: 30px;
+            animation: pulse 2s infinite;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.7; }
+        }
+
+        /* Confetti and decorations */
+        .confetti {
+            position: fixed;
+            width: 15px;
+            height: 15px;
+            background: #ff006e;
+            opacity: 0;
+            animation: confettiFall 5s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes confettiFall {
+            0% { 
+                transform: translateY(-100px) rotate(0deg); 
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { 
+                transform: translateY(100vh) rotate(360deg); 
+                opacity: 0;
+            }
+        }
+
+        .floating-heart {
+            position: fixed;
+            font-size: 2rem;
+            opacity: 0;
+            animation: floatHeart 8s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .balloon {
+            position: fixed;
+            width: 40px;
+            height: 50px;
+            background: #ff006e;
+            border-radius: 50%;
+            animation: balloonFloat 10s linear infinite;
+            z-index: 1;
+        }
+
+        .balloon::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 30px;
+            background: #ff85a1;
+        }
+
+        @keyframes balloonFloat {
+            0% { 
+                transform: translateY(100vh) translateX(0) rotate(0deg); 
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { 
+                transform: translateY(-100px) translateX(20px) rotate(360deg); 
+                opacity: 0;
+            }
+        }
+
+        /* Page transition overlay */
+        .transition-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ff006e;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        .transition-overlay.active {
+            opacity: 1;
+        }
+
+        /* Guide Styles */
+        .guide-container {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 50;
+        }
+
+        .guide-button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff006e, #ff85a1);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            animation: guidePulse 3s infinite;
+        }
+
+        @keyframes guidePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .guide-button:hover {
+            transform: scale(1.1);
+        }
+
+        .guide-tooltip {
+            position: absolute;
+            bottom: 60px;
+            left: 0;
+            width: 280px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+            border: 2px solid #ff85a1;
+        }
+
+        .guide-tooltip.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+
+        .guide-tooltip h3 {
+            color: #ff006e;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .guide-tooltip p {
+            color: #5a3d5c;
+            line-height: 1.5;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .guide-tooltip ul {
+            text-align: left;
+            padding-left: 20px;
+            color: #5a3d5c;
+        }
+
+        .guide-tooltip li {
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .guide-tooltip li strong {
+            color: #ff006e;
+        }
+
+        .guide-close {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: #ff006e;
+            cursor: pointer;
+        }
+
+        /* Close button inside the tooltip */
+        .close-guide {
+            display: block;
+            margin-top: 10px;
+            background: #ff006e;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 5px 15px;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .birthday-text {
+                font-size: 3rem;
+            }
+            .subtitle {
+                font-size: 1.3rem;
+            }
+            .cat {
+                width: 120px;
+                height: 100px;
+            }
+            .cat-head {
+                width: 70px;
+                height: 70px;
+                bottom: 35px;
+                left: 25px;
+            }
+            .cat-body {
+                width: 80px;
+                height: 50px;
+            }
+            .tap-instruction {
+                font-size: 1.1rem;
+            }
+            .guide-container {
+                bottom: 15px;
+                left: 15px;
+            }
+            .guide-tooltip {
+                width: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .birthday-text {
+                font-size: 2.5rem;
+            }
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            .cat-container {
+                height: 150px;
+            }
+            .tap-instruction {
+                font-size: 1rem;
+                padding: 8px 16px;
+            }
+            .guide-tooltip {
+                width: 220px;
+                font-size: 0.8rem;
+            }
+            .guide-button {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Decorations -->
+    <div id="confettiContainer"></div>
+    <div id="heartsContainer"></div>
+    <div id="balloonsContainer"></div>
+    
+    <!-- Page Transition Overlay -->
+    <div class="transition-overlay" id="transitionOverlay"></div>
+    
+    <!-- Guide Button and Tooltip -->
+    <div class="guide-container">
+        <div class="guide-button" id="guideButton">
+            <i class="fas fa-map"></i>
+        </div>
+        <div class="guide-tooltip" id="guideTooltip">
+            <button class="guide-close" id="guideClose">&times;</button>
+            <h3>Guide </h3>
+            <p>caution!!!: dont ignore the guide</p>
+            <ul>
+                <li><strong>Past:</strong>our cute memories together</li>
+                <li><strong>peep into the Future:</strong> next page for a peek into our future</li>
+                <li><strong>present (for you)</strong> then some words for you (me trying to make express my love for you in words, vaise shabdo me kaise kru bayaan....)</li>
+            </ul>
+            <p>just click anywhere bbg</p>
+            <button class="close-guide" id="closeGuide">Got it! 💖</button>
+        </div>
+    </div>
+    
+    <!-- Main Birthday Page -->
+    <div class="container">
+        <h1 class="birthday-text">Happy Birthday!</h1>
+        <p class="subtitle">To the most amazing person in my life</p>
+        
+        <div class="cat-container">
+            <div class="cat">
+                <div class="cat-body"></div>
+                <div class="cat-head">
+                    <div class="cat-ear left"></div>
+                    <div class="cat-ear right"></div>
+                    <div class="cat-eye left"></div>
+                    <div class="cat-eye right"></div>
+                    <div class="cat-nose"></div>
+                    <div class="cat-mouth"></div>
+                </div>
+                <div class="cat-paw left"></div>
+                <div class="cat-paw right"></div>
+                <div class="cat-tail"></div>
+            </div>
+        </div>
+        
+        <div class="tap-instruction">
+            <i class="fas fa-hand-point-up"></i> Tap anywhere 🙈 
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create background decorations
+            const confettiContainer = document.getElementById('confettiContainer');
+            const heartsContainer = document.getElementById('heartsContainer');
+            const balloonsContainer = document.getElementById('balloonsContainer');
+            const transitionOverlay = document.getElementById('transitionOverlay');
+            const guideButton = document.getElementById('guideButton');
+            const guideTooltip = document.getElementById('guideTooltip');
+            const guideClose = document.getElementById('guideClose');
+            const closeGuide = document.getElementById('closeGuide');
+            
+            // Create confetti
+            for (let i = 0; i < 40; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.animationDelay = Math.random() * 5 + 's';
+                confetti.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                confettiContainer.appendChild(confetti);
+            }
+            
+            // Create floating hearts
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('floating-heart');
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 8 + 's';
+                heart.style.fontSize = (Math.random() * 10 + 20) + 'px';
+                heartsContainer.appendChild(heart);
+            }
+            
+            // Create balloons
+            for (let i = 0; i < 10; i++) {
+                const balloon = document.createElement('div');
+                balloon.classList.add('balloon');
+                balloon.style.left = Math.random() * 100 + '%';
+                balloon.style.animationDelay = Math.random() * 10 + 's';
+                balloon.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                balloonsContainer.appendChild(balloon);
+            }
+            
+            // Guide functionality
+            let isGuideOpen = false;
+            
+            guideButton.addEventListener('click', function(e) {
+                e.stopPropagation();
+                isGuideOpen = !isGuideOpen;
+                guideTooltip.classList.toggle('active', isGuideOpen);
+            });
+            
+            guideClose.addEventListener('click', function(e) {
+                e.stopPropagation();
+                isGuideOpen = false;
+                guideTooltip.classList.remove('active');
+            });
+            
+            closeGuide.addEventListener('click', function(e) {
+                e.stopPropagation();
+                isGuideOpen = false;
+                guideTooltip.classList.remove('active');
+            });
+            
+            // Close guide when clicking outside
+            document.addEventListener('click', function() {
+                if (isGuideOpen) {
+                    isGuideOpen = false;
+                    guideTooltip.classList.remove('active');
+                }
+            });
+            
+            // Make the entire page clickable to navigate to memory lane
+            let hasClicked = false;
+            
+            document.body.addEventListener('click', function(e) {
+                if (e.target.closest('.guide-container')) return; // Don't navigate if clicking guide
+                
+                if (hasClicked) return; // Prevent multiple clicks during transition
+                
+                hasClicked = true;
+                
+                // Add cat animation on click
+                const cat = document.querySelector('.cat');
+                cat.style.animation = 'none';
+                
+                // Show transition overlay
+                transitionOverlay.classList.add('active');
+                
+                setTimeout(() => {
+                    // Navigate to memorylane.html after transition
+                    window.location.href = 'memorylane.html';
+                }, 500);
+            });
+            
+            // Make cat interactive on larger screens
+            const cat = document.querySelector('.cat');
+            if (window.innerWidth > 768) {
+                document.addEventListener('mousemove', (e) => {
+                    const mouseX = e.clientX;
+                    const mouseY = e.clientY;
+                    
+                    const catRect = cat.getBoundingClientRect();
+                    const catX = catRect.left + catRect.width / 2;
+                    const catY = catRect.top + catRect.height / 2;
+                    
+                    const angle = Math.atan2(mouseY - catY, mouseX - catX) * 180 / Math.PI;
+                    
+                    // Cat looks at cursor when nearby
+                    if (Math.abs(mouseX - catX) < 300 && Math.abs(mouseY - catY) < 300) {
+                        cat.style.transform = `translateY(-10px) rotate(${angle - 90}deg)`;
+                    } else {
+                        cat.style.transform = 'translateY(-10px)';
+                    }
+                });
+            }
+            
+            // Add touch feedback for mobile
+            document.body.addEventListener('touchstart', function() {
+                document.body.style.backgroundColor = '#ffd1dc';
+                setTimeout(() => {
+                    document.body.style.backgroundColor = '';
+                }, 300);
+            });
+        });
+    </script>
+</body>
+</html>
